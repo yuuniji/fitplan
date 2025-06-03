@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate-key="pageTitle">徒手增肌训练计划</title>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --text-dark: #333;
+            --text-light: #fff;
+            --muted: #666;
+            --bg-light: #f8f9ff;
+            --bg-hover: #e8ebff;
+            --radius: 15px;
+            --transition: 0.3s ease;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            position: relative; /* For language switcher positioning */
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        #language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        #language-switcher button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            margin-left: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color var(--transition);
+        }
+
+        #language-switcher button:hover {
+            background: var(--secondary);
+        }
+         #language-switcher button.active {
+            background: var(--secondary);
+            font-weight: bold;
+        }
+
+
+        .week-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .day-icon {
+            font-size: 2rem;
+            margin-right: 0.75rem;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .day-subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .exercise-list {
+            list-style: none;
+        }
+
+        .exercise-item {
+            background: var(--bg-light);
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            transition: var(--transition);
+        }
+
+        .exercise-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(5px);
+        }
+
+        .exercise-name {
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .exercise-details {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-link {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .exercise-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .rest-day {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: white;
+            text-align: center;
+        }
+
+        .rest-day .day-title {
+            color: white;
+        }
+
+        .progress-section,
+        .tips-section,
+        .nutrition-section {
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            color: var(--text-dark);
+        }
+
+        .progress-section {
+            background: white;
+        }
+
+        .progress-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .milestone-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .milestone-week {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-target {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+        }
+
+        .tips-title { /* Also used by nutrition title */
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-icon {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nutrition-section {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+        }
+
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .meal-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .meal-time {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .week-container {
+                grid-template-columns: 1fr;
+            }
+            #language-switcher {
+                position: static; /* Or adjust for mobile */
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div id="language-switcher">
+                <button onclick="changeLanguage('zh-CN')" data-lang="zh-CN">中文</button>
+                <button onclick="changeLanguage('en')" data-lang="en">English</button>
+                <button onclick="changeLanguage('ja')" data-lang="ja">日本語</button>
+            </div>
+            <h1 data-translate-key="headerTitle">🏋️ 徒手增肌训练计划</h1>
+            <p data-translate-key="headerSubtitle">零器械 • 高效果 • 随时随地</p>
+        </div>
+        
+        <div class="week-container">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">💪</div>
+                    <div>
+                        <div class="day-title" data-translate-key="mondayTitle">周一 - 上肢推力</div>
+                        <div class="day-subtitle" data-translate-key="mondaySubtitle">胸肌 + 三头肌</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="stdPushupName">标准俯卧撑</div>
+                        <div class="exercise-details" data-translate-key="stdPushupDetails">4组 × 力竭-2次 | 休息60-90秒</div>
+                        <a href="https://www.youtube.com/results?search_query=perfect+push+up+form+tutorial" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="diamondPushupName">钻石俯卧撑</div>
+                        <div class="exercise-details" data-translate-key="diamondPushupDetails">3组 × 力竭次数 | 重点刺激三头肌</div>
+                        <a href="https://www.youtube.com/results?search_query=diamond+push+up+tutorial" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="widePushupName">宽距俯卧撑</div>
+                        <div class="exercise-details" data-translate-key="widePushupDetails">3组 × 力竭次数 | 重点刺激胸肌外侧</div>
+                        <a href="https://www.youtube.com/results?search_query=wide+grip+push+up+tutorial" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="inclinePushupName">倾斜俯卧撑</div>
+                        <div class="exercise-details" data-translate-key="inclinePushupDetails">3组 × 力竭次数 | 脚放床上，增加上胸刺激</div>
+                        <a href="https://www.youtube.com/results?search_query=incline+push+up+feet+elevated" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="benchDipsName">床边臂屈伸</div>
+                        <div class="exercise-details" data-translate-key="benchDipsDetails">3组 × 8-15次 | 利用床边做臂屈伸</div>
+                        <a href="https://www.youtube.com/results?search_query=bed+edge+tricep+dips" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">🦵</div>
+                    <div>
+                        <div class="day-title" data-translate-key="tuesdayTitle">周二 - 下肢+核心</div>
+                        <div class="day-subtitle" data-translate-key="tuesdaySubtitle">腿部 + 腹肌</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="squatsName">深蹲</div>
+                        <div class="exercise-details" data-translate-key="squatsDetails">5组 × 20-30次 | 动作要慢，注重控制</div>
+                        <a href="https://www.youtube.com/results?search_query=perfect+squat+form+bodyweight" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="jumpSquatsName">跳跃深蹲</div>
+                        <div class="exercise-details" data-translate-key="jumpSquatsDetails">4组 × 10-15次 | 爆发力训练</div>
+                        <a href="https://www.youtube.com/results?search_query=jump+squat+tutorial" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="bulgarianSplitSquatsName">保加利亚分腿蹲</div>
+                        <div class="exercise-details" data-translate-key="bulgarianSplitSquatsDetails">3组 × 每腿10-15次 | 后脚放床上</div>
+                        <a href="https://www.youtube.com/results?search_query=bulgarian+split+squat+bed" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="plankName">平板支撑</div>
+                        <div class="exercise-details" data-translate-key="plankDetails">3组 × 60-120秒 | 核心稳定性训练</div>
+                        <a href="https://www.youtube.com/results?search_query=perfect+plank+form+tutorial" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="mountainClimbersName">山地跑</div>
+                        <div class="exercise-details" data-translate-key="mountainClimbersDetails">3组 × 30秒 | 高强度核心训练</div>
+                        <a href="https://www.youtube.com/results?search_query=mountain+climbers+exercise" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">🔙</div>
+                    <div>
+                        <div class="day-title" data-translate-key="wednesdayTitle">周三 - 上肢拉力</div>
+                        <div class="day-subtitle" data-translate-key="wednesdaySubtitle">背部 + 二头肌</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="bedSheetRowsName">床边倒划</div>
+                        <div class="exercise-details" data-translate-key="bedSheetRowsDetails">4组 × 力竭次数 | 躺床下抓床边向上拉</div>
+                        <a href="https://www.youtube.com/results?search_query=bodyweight+inverted+row+bed" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="supermansName">超人式</div>
+                        <div class="exercise-details" data-translate-key="supermansDetails">4组 × 15-20次 | 趴床上，抬起胸部和腿部</div>
+                        <a href="https://www.youtube.com/results?search_query=superman+exercise+back" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="reverseFlyName">反向飞鸟</div>
+                        <div class="exercise-details" data-translate-key="reverseFlyDetails">4组 × 15-20次 | 趴床上训练后三角肌</div>
+                        <a href="https://www.youtube.com/results?search_query=reverse+fly+bodyweight+prone" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="ytwName">YTW练习</div>
+                        <div class="exercise-details" data-translate-key="ytwDetails">各15次×3组 | Y、T、W字形举起训练</div>
+                        <a href="https://www.youtube.com/results?search_query=YTW+exercise+prone" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">⚡</div>
+                    <div>
+                        <div class="day-title" data-translate-key="thursdayTitle">周四 - 爆发力</div>
+                        <div class="day-subtitle" data-translate-key="thursdaySubtitle">HIIT 高强度间歇</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="hiitCircuitName">HIIT循环训练</div>
+                        <div class="exercise-details" data-translate-key="hiitCircuitDetails">每动作45秒全力，休息15秒 | 完成4-6轮</div>
+                        <a href="https://www.youtube.com/results?search_query=bodyweight+HIIT+workout+home" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="explosivePushupsName">爆发力俯卧撑</div>
+                        <div class="exercise-details" data-translate-key="explosivePushupsDetails">推起时双手离地</div>
+                        <a href="https://www.youtube.com/results?search_query=explosive+push+up+clap" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="burpeesName">Burpee</div>
+                        <div class="exercise-details" data-translate-key="burpeesDetails">全身爆发力训练</div>
+                        <a href="https://www.youtube.com/results?search_query=perfect+burpee+form" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="highKneesName">原地高抬腿</div>
+                        <div class="exercise-details" data-translate-key="highKneesDetails">心肺功能训练</div>
+                        <a href="https://www.youtube.com/results?search_query=high+knees+exercise" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">🎯</div>
+                    <div>
+                        <div class="day-title" data-translate-key="fridayTitle">周五 - 上肢耐力</div>
+                        <div class="day-subtitle" data-translate-key="fridaySubtitle">高次数耐力训练</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="pushupPyramidName">俯卧撑金字塔</div>
+                        <div class="exercise-details" data-translate-key="pushupPyramidDetails">1,2,3,4,5,4,3,2,1次 | 每组间休息10秒</div>
+                        <a href="https://www.youtube.com/results?search_query=push+up+pyramid+workout" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="pushupComboName">俯卧撑变化组合</div>
+                        <div class="exercise-details" data-translate-key="pushupComboDetails">标准×10 + 宽距×10 + 钻石×10</div>
+                        <a href="https://www.youtube.com/results?search_query=push+up+variations+workout" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="isometricHoldName">等长训练</div>
+                        <div class="exercise-details" data-translate-key="isometricHoldDetails">俯卧撑最低点保持30秒×3组</div>
+                        <a href="https://www.youtube.com/results?search_query=isometric+push+up+hold" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-icon">🔥</div>
+                    <div>
+                        <div class="day-title" data-translate-key="saturdayTitle">周六 - 下肢强化</div>
+                        <div class="day-subtitle" data-translate-key="saturdaySubtitle">腿部循环 + 核心</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="legCircuitName">腿部循环训练</div>
+                        <div class="exercise-details" data-translate-key="legCircuitDetails">每动作30次连续完成，重复3-4轮</div>
+                        <a href="https://www.youtube.com/results?search_query=leg+circuit+bodyweight+workout" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="lungesName">弓步蹲</div>
+                        <div class="exercise-details" data-translate-key="lungesDetails">30次 (每腿15次)</div>
+                        <a href="https://www.youtube.com/results?search_query=forward+lunge+exercise" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="wallSitName">靠墙静蹲</div>
+                        <div class="exercise-details" data-translate-key="wallSitDetails">30秒保持</div>
+                        <a href="https://www.youtube.com/results?search_query=wall+sit+exercise" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="coreBlastName">核心强化</div>
+                        <div class="exercise-details" data-translate-key="coreBlastDetails">平板支撑变化 5分钟连续</div>
+                        <a href="https://www.youtube.com/results?search_query=plank+variations+core+workout" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="day-card rest-day">
+                <div class="day-header">
+                    <div class="day-icon">😴</div>
+                    <div>
+                        <div class="day-title" data-translate-key="sundayTitle">周日 - 休息日</div>
+                        <div class="day-subtitle" data-translate-key="sundaySubtitle">恢复与拉伸</div>
+                    </div>
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="lightStretchingName">轻度拉伸</div>
+                        <div class="exercise-details" data-translate-key="lightStretchingDetails">15-20分钟全身拉伸放松</div>
+                        <a href="https://www.youtube.com/results?search_query=full+body+stretching+routine" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                    <li class="exercise-item">
+                        <div class="exercise-name" data-translate-key="activeRecoveryName">散步或轻松活动</div>
+                        <div class="exercise-details" data-translate-key="activeRecoveryDetails">促进血液循环，帮助恢复</div>
+                        <a href="https://www.youtube.com/results?search_query=active+recovery+exercises" class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <h2 class="progress-title" data-translate-key="progressTitle">📈 进度里程碑</h2>
+            <div class="milestone-grid">
+                <div class="milestone-card">
+                    <div class="milestone-week" data-translate-key="milestoneWeek1-4">第1-4周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget1-4">
+                        • 俯卧撑：5次 → 15次<br>
+                        • 深蹲：15次 → 25次<br>
+                        • 平板支撑：30秒 → 60秒
+                    </div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-week" data-translate-key="milestoneWeek5-8">第5-8周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget5-8">
+                        • 钻石俯卧撑入门<br>
+                        • 单腿深蹲尝试<br>
+                        • 平板支撑：90秒+
+                    </div>
+                </div>
+                <div class="milestone-card">
+                    <div class="milestone-week" data-translate-key="milestoneWeek9-12">第9-12周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget9-12">
+                        • 单手俯卧撑尝试<br>
+                        • 手枪深蹲完成<br>
+                        • 明显肌肉增长
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nutrition-section">
+            <h2 class="tips-title" data-translate-key="nutritionTitle">🍽️ 简化营养方案</h2>
+            <div class="meal-grid">
+                <div class="meal-card">
+                    <div class="meal-time" data-translate-key="mealBreakfastTime">早餐 (7:00)</div>
+                    <div data-translate-key="mealBreakfastContent">2个鸡蛋 + 1杯牛奶</div>
+                </div>
+                <div class="meal-card">
+                    <div class="meal-time" data-translate-key="mealLunchTime">午餐 (12:30)</div>
+                    <div data-translate-key="mealLunchContent">牛肉 + 蔬菜 + 米饭</div>
+                </div>
+                <div class="meal-card">
+                    <div class="meal-time" data-translate-key="mealPostWorkoutTime">训练后 (17:00)</div>
+                    <div data-translate-key="mealPostWorkoutContent">1勺蛋白粉 + 水冲饮</div>
+                </div>
+                <div class="meal-card">
+                    <div class="meal-time" data-translate-key="mealDinnerTime">晚餐 (19:00)</div>
+                    <div data-translate-key="mealDinnerContent">牛肉 + 蔬菜 + 米饭</div>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: #f0f0f0;" data-translate-key="proteinAlternative">
+                💡 若蛋白粉不足，可在训练后改为 <strong>1个鸡蛋 + 牛奶</strong> 补充蛋白质。
+            </p>
+        </div>
+        
+        <div class="tips-section">
+            <h2 class="tips-title" data-translate-key="tipsTitle">💡 成功关键贴士</h2>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <div class="tip-icon">⏰</div>
+                    <strong data-translate-key="tipConsistencyTitle">一致性最重要</strong><br>
+                    <span data-translate-key="tipConsistencyDesc">每天固定时间训练，养成习惯比完美计划更重要</span>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">📈</div>
+                    <strong data-translate-key="tipProgressiveOverloadTitle">渐进式增加</strong><br>
+                    <span data-translate-key="tipProgressiveOverloadDesc">每周尝试多做1-2次，或增加保持时间</span>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">🎯</div>
+                    <strong data-translate-key="tipQualityOverQuantityTitle">动作质量优先</strong><br>
+                    <span data-translate-key="tipQualityOverQuantityDesc">标准动作比次数更重要，避免受伤</span>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">💧</div>
+                    <strong data-translate-key="tipHydrationSleepTitle">充足水分和睡眠</strong><br>
+                    <span data-translate-key="tipHydrationSleepDesc">每日3-4升水，7-9小时睡眠</span>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">📱</div>
+                    <strong data-translate-key="tipTrackProgressTitle">记录进步</strong><br>
+                    <span data-translate-key="tipTrackProgressDesc">用手机记录每次训练数据和照片对比</span>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">🧘</div>
+                    <strong data-translate-key="tipListenToBodyTitle">倾听身体</strong><br>
+                    <span data-translate-key="tipListenToBodyDesc">感到疼痛立即停止，肌肉酸痛是正常的</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const translations = {
+    pageTitle: {
+        'zh-CN': '徒手增肌训练计划',
+        'en': 'Bodyweight Muscle Gain Training Plan',
+        'ja': '自重筋力増強トレーニングプラン'
+    },
+    headerTitle: {
+        'zh-CN': '🏋️ 徒手增肌训练计划',
+        'en': '🏋️ Bodyweight Muscle Gain Training Plan',
+        'ja': '🏋️ 自重筋力増強トレーニングプラン'
+    },
+    headerSubtitle: {
+        'zh-CN': '零器械 • 高效果 • 随时随地',
+        'en': 'No Equipment • High Effect • Anytime, Anywhere',
+        'ja': '器具不要 • 高効果 • いつでもどこでも'
+    },
+    videoLink: {
+        'zh-CN': '📺 教学视频',
+        'en': '📺 Tutorial Video',
+        'ja': '📺 解説ビデオ'
+    },
+    // Monday
+    mondayTitle: { 'zh-CN': '周一 - 上肢推力', 'en': 'Monday - Upper Body Push', 'ja': '月曜日 - 上半身プッシュ' },
+    mondaySubtitle: { 'zh-CN': '胸肌 + 三头肌', 'en': 'Chest + Triceps', 'ja': '胸筋 + 上腕三頭筋' },
+    stdPushupName: { 'zh-CN': '标准俯卧撑', 'en': 'Standard Push-ups', 'ja': 'スタンダードプッシュアップ' },
+    stdPushupDetails: { 'zh-CN': '4组 × 力竭-2次 | 休息60-90秒', 'en': '4 sets × To failure-2 reps | Rest 60-90s', 'ja': '4セット × 限界-2回 | 休憩60-90秒' },
+    diamondPushupName: { 'zh-CN': '钻石俯卧撑', 'en': 'Diamond Push-ups', 'ja': 'ダイヤモンドプッシュアップ' },
+    diamondPushupDetails: { 'zh-CN': '3组 × 力竭次数 | 重点刺激三头肌', 'en': '3 sets × To failure | Focus on triceps', 'ja': '3セット × 限界回数 | 上腕三頭筋を重点的に刺激' },
+    widePushupName: { 'zh-CN': '宽距俯卧撑', 'en': 'Wide Push-ups', 'ja': 'ワイドプッシュアップ' },
+    widePushupDetails: { 'zh-CN': '3组 × 力竭次数 | 重点刺激胸肌外侧', 'en': '3 sets × To failure | Focus on outer chest', 'ja': '3セット × 限界回数 | 胸筋外側を重点的に刺激' },
+    inclinePushupName: { 'zh-CN': '倾斜俯卧撑', 'en': 'Incline Push-ups', 'ja': 'インクラインプッシュアップ' },
+    inclinePushupDetails: { 'zh-CN': '3组 × 力竭次数 | 脚放床上，增加上胸刺激', 'en': '3 sets × To failure | Feet on bed, increase upper chest stimulation', 'ja': '3セット × 限界回数 | 足をベッドに置き、上胸部への刺激を増加' },
+    benchDipsName: { 'zh-CN': '床边臂屈伸', 'en': 'Bedside Dips', 'ja': 'ベッドサイドディップス' },
+    benchDipsDetails: { 'zh-CN': '3组 × 8-15次 | 利用床边做臂屈伸', 'en': '3 sets × 8-15 reps | Use bedside for dips', 'ja': '3セット × 8-15回 | ベッドの端を使ってディップス' },
+    // Tuesday
+    tuesdayTitle: { 'zh-CN': '周二 - 下肢+核心', 'en': 'Tuesday - Lower Body + Core', 'ja': '火曜日 - 下半身+コア' },
+    tuesdaySubtitle: { 'zh-CN': '腿部 + 腹肌', 'en': 'Legs + Abs', 'ja': '脚 + 腹筋' },
+    squatsName: { 'zh-CN': '深蹲', 'en': 'Squats', 'ja': 'スクワット' },
+    squatsDetails: { 'zh-CN': '5组 × 20-30次 | 动作要慢，注重控制', 'en': '5 sets × 20-30 reps | Slow movement, focus on control', 'ja': '5セット × 20-30回 | ゆっくりと動作し、コントロールを重視' },
+    jumpSquatsName: { 'zh-CN': '跳跃深蹲', 'en': 'Jump Squats', 'ja': 'ジャンプスクワット' },
+    jumpSquatsDetails: { 'zh-CN': '4组 × 10-15次 | 爆发力训练', 'en': '4 sets × 10-15 reps | Explosive power training', 'ja': '4セット × 10-15回 | 瞬発力トレーニング' },
+    bulgarianSplitSquatsName: { 'zh-CN': '保加利亚分腿蹲', 'en': 'Bulgarian Split Squats', 'ja': 'ブルガリアンスプリットスクワット' },
+    bulgarianSplitSquatsDetails: { 'zh-CN': '3组 × 每腿10-15次 | 后脚放床上', 'en': '3 sets × 10-15 reps per leg | Rear foot on bed', 'ja': '3セット × 各脚10-15回 | 後ろ足をベッドに置く' },
+    plankName: { 'zh-CN': '平板支撑', 'en': 'Plank', 'ja': 'プランク' },
+    plankDetails: { 'zh-CN': '3组 × 60-120秒 | 核心稳定性训练', 'en': '3 sets × 60-120s | Core stability training', 'ja': '3セット × 60-120秒 | コア安定性トレーニング' },
+    mountainClimbersName: { 'zh-CN': '山地跑', 'en': 'Mountain Climbers', 'ja': 'マウンテンクライマー' },
+    mountainClimbersDetails: { 'zh-CN': '3组 × 30秒 | 高强度核心训练', 'en': '3 sets × 30s | High-intensity core training', 'ja': '3セット × 30秒 | 高強度コアトレーニング' },
+    // Wednesday
+    wednesdayTitle: { 'zh-CN': '周三 - 上肢拉力', 'en': 'Wednesday - Upper Body Pull', 'ja': '水曜日 - 上半身プル' },
+    wednesdaySubtitle: { 'zh-CN': '背部 + 二头肌', 'en': 'Back + Biceps', 'ja': '背中 + 上腕二頭筋' },
+    bedSheetRowsName: { 'zh-CN': '床边倒划', 'en': 'Bed Sheet Rows', 'ja': 'ベッドシートロウ' },
+    bedSheetRowsDetails: { 'zh-CN': '4组 × 力竭次数 | 躺床下抓床边向上拉', 'en': '4 sets × To failure | Lie under bed, grab edge and pull up', 'ja': '4セット × 限界回数 | ベッドの下に横たわり、ベッドの端を掴んで引き上げる' },
+    supermansName: { 'zh-CN': '超人式', 'en': 'Supermans', 'ja': 'スーパーマン' },
+    supermansDetails: { 'zh-CN': '4组 × 15-20次 | 趴床上，抬起胸部和腿部', 'en': '4 sets × 15-20 reps | Lie on stomach, lift chest and legs', 'ja': '4セット × 15-20回 | うつ伏せになり、胸と脚を持ち上げる' },
+    reverseFlyName: { 'zh-CN': '反向飞鸟', 'en': 'Reverse Fly (Bodyweight)', 'ja': 'リバースフライ（自重）' },
+    reverseFlyDetails: { 'zh-CN': '4组 × 15-20次 | 趴床上训练后三角肌', 'en': '4 sets × 15-20 reps | Lie on stomach, train rear deltoids', 'ja': '4セット × 15-20回 | うつ伏せで後部三角筋を鍛える' },
+    ytwName: { 'zh-CN': 'YTW练习', 'en': 'YTWLs', 'ja': 'YTWLエクササイズ' },
+    ytwDetails: { 'zh-CN': '各15次×3组 | Y、T、W字形举起训练', 'en': '15 reps each × 3 sets | Y, T, W shaped lifts', 'ja': '各15回×3セット | Y、T、W字型リフトトレーニング' },
+    // Thursday
+    thursdayTitle: { 'zh-CN': '周四 - 爆发力', 'en': 'Thursday - Explosive Power', 'ja': '木曜日 - 瞬発力' },
+    thursdaySubtitle: { 'zh-CN': 'HIIT 高强度间歇', 'en': 'HIIT High-Intensity Interval Training', 'ja': 'HIIT 高強度インターバルトレーニング' },
+    hiitCircuitName: { 'zh-CN': 'HIIT循环训练', 'en': 'HIIT Circuit Training', 'ja': 'HIITサーキットトレーニング' },
+    hiitCircuitDetails: { 'zh-CN': '每动作45秒全力，休息15秒 | 完成4-6轮', 'en': '45s max effort per exercise, 15s rest | Complete 4-6 rounds', 'ja': '各エクササイズ45秒全力、15秒休憩 | 4-6ラウンド完了' },
+    explosivePushupsName: { 'zh-CN': '爆发力俯卧撑', 'en': 'Explosive Push-ups', 'ja': '爆発的プッシュアップ' },
+    explosivePushupsDetails: { 'zh-CN': '推起时双手离地', 'en': 'Hands leave ground on push-up', 'ja': 'プッシュアップ時に両手が地面から離れる' },
+    burpeesName: { 'zh-CN': 'Burpee', 'en': 'Burpees', 'ja': 'バーピー' },
+    burpeesDetails: { 'zh-CN': '全身爆发力训练', 'en': 'Full body explosive training', 'ja': '全身瞬発力トレーニング' },
+    highKneesName: { 'zh-CN': '原地高抬腿', 'en': 'High Knees', 'ja': 'その場もも上げ' },
+    highKneesDetails: { 'zh-CN': '心肺功能训练', 'en': 'Cardio training', 'ja': '心肺機能トレーニング' },
+    // Friday
+    fridayTitle: { 'zh-CN': '周五 - 上肢耐力', 'en': 'Friday - Upper Body Endurance', 'ja': '金曜日 - 上半身持久力' },
+    fridaySubtitle: { 'zh-CN': '高次数耐力训练', 'en': 'High Rep Endurance Training', 'ja': '高回数持久力トレーニング' },
+    pushupPyramidName: { 'zh-CN': '俯卧撑金字塔', 'en': 'Push-up Pyramid', 'ja': 'プッシュアップピラミッド' },
+    pushupPyramidDetails: { 'zh-CN': '1,2,3,4,5,4,3,2,1次 | 每组间休息10秒', 'en': '1,2,3,4,5,4,3,2,1 reps | 10s rest between sets', 'ja': '1,2,3,4,5,4,3,2,1回 | 各セット間10秒休憩' },
+    pushupComboName: { 'zh-CN': '俯卧撑变化组合', 'en': 'Push-up Combo', 'ja': 'プッシュアップコンボ' },
+    pushupComboDetails: { 'zh-CN': '标准×10 + 宽距×10 + 钻石×10', 'en': 'Standard ×10 + Wide ×10 + Diamond ×10', 'ja': 'スタンダード×10 + ワイド×10 + ダイヤモンド×10' },
+    isometricHoldName: { 'zh-CN': '等长训练', 'en': 'Isometric Hold', 'ja': 'アイソメトリックホールド' },
+    isometricHoldDetails: { 'zh-CN': '俯卧撑最低点保持30秒×3组', 'en': 'Hold bottom of push-up for 30s × 3 sets', 'ja': 'プッシュアップの最低点で30秒保持×3セット' },
+    // Saturday
+    saturdayTitle: { 'zh-CN': '周六 - 下肢强化', 'en': 'Saturday - Lower Body Strength', 'ja': '土曜日 - 下半身強化' },
+    saturdaySubtitle: { 'zh-CN': '腿部循环 + 核心', 'en': 'Leg Circuit + Core', 'ja': '脚サーキット + コア' },
+    legCircuitName: { 'zh-CN': '腿部循环训练', 'en': 'Leg Circuit Training', 'ja': '脚サーキットトレーニング' },
+    legCircuitDetails: { 'zh-CN': '每动作30次连续完成，重复3-4轮', 'en': '30 reps per exercise continuously, repeat 3-4 rounds', 'ja': '各エクササイズ30回連続、3-4ラウンド繰り返し' },
+    lungesName: { 'zh-CN': '弓步蹲', 'en': 'Lunges', 'ja': 'ランジ' },
+    lungesDetails: { 'zh-CN': '30次 (每腿15次)', 'en': '30 reps (15 per leg)', 'ja': '30回（各脚15回）' },
+    wallSitName: { 'zh-CN': '靠墙静蹲', 'en': 'Wall Sit', 'ja': 'ウォールシット' },
+    wallSitDetails: { 'zh-CN': '30秒保持', 'en': 'Hold for 30s', 'ja': '30秒保持' },
+    coreBlastName: { 'zh-CN': '核心强化', 'en': 'Core Blast', 'ja': 'コア強化' },
+    coreBlastDetails: { 'zh-CN': '平板支撑变化 5分钟连续', 'en': 'Plank variations 5 mins continuous', 'ja': 'プランクバリエーション 5分間連続' },
+    // Sunday
+    sundayTitle: { 'zh-CN': '周日 - 休息日', 'en': 'Sunday - Rest Day', 'ja': '日曜日 - 休息日' },
+    sundaySubtitle: { 'zh-CN': '恢复与拉伸', 'en': 'Recovery & Stretching', 'ja': '回復とストレッチ' },
+    lightStretchingName: { 'zh-CN': '轻度拉伸', 'en': 'Light Stretching', 'ja': '軽いストレッチ' },
+    lightStretchingDetails: { 'zh-CN': '15-20分钟全身拉伸放松', 'en': '15-20 mins full body stretch and relax', 'ja': '15-20分全身ストレッチとリラックス' },
+    activeRecoveryName: { 'zh-CN': '散步或轻松活动', 'en': 'Walk or Light Activity', 'ja': '散歩または軽い活動' },
+    activeRecoveryDetails: { 'zh-CN': '促进血液循环，帮助恢复', 'en': 'Promote blood circulation, aid recovery', 'ja': '血行促進、回復を助ける' },
+    // Progress Milestones
+    progressTitle: { 'zh-CN': '📈 进度里程碑', 'en': '📈 Progress Milestones', 'ja': '📈 進捗マイルストーン' },
+    milestoneWeek1_4: { 'zh-CN': '第1-4周', 'en': 'Weeks 1-4', 'ja': '1～4週目' },
+    milestoneTarget1_4: {
+        'zh-CN': '• 俯卧撑：5次 → 15次<br>• 深蹲：15次 → 25次<br>• 平板支撑：30秒 → 60秒',
+        'en': '• Push-ups: 5 reps → 15 reps<br>• Squats: 15 reps → 25 reps<br>• Plank: 30s → 60s',
+        'ja': '• プッシュアップ：5回 → 15回<br>• スクワット：15回 → 25回<br>• プランク：30秒 → 60秒'
+    },
+    milestoneWeek5_8: { 'zh-CN': '第5-8周', 'en': 'Weeks 5-8', 'ja': '5～8週目' },
+    milestoneTarget5_8: {
+        'zh-CN': '• 钻石俯卧撑入门<br>• 单腿深蹲尝试<br>• 平板支撑：90秒+',
+        'en': '• Intro to Diamond Push-ups<br>• Attempt Single Leg Squats<br>• Plank: 90s+',
+        'ja': '• ダイヤモンドプッシュアップ入門<br>• 片足スクワット挑戦<br>• プランク：90秒+'
+    },
+    milestoneWeek9_12: { 'zh-CN': '第9-12周', 'en': 'Weeks 9-12', 'ja': '9～12週目' },
+    milestoneTarget9_12: {
+        'zh-CN': '• 单手俯卧撑尝试<br>• 手枪深蹲完成<br>• 明显肌肉增长',
+        'en': '• Attempt One-Arm Push-ups<br>• Complete Pistol Squats<br>• Noticeable muscle growth',
+        'ja': '• 片手プッシュアップ挑戦<br>• ピストルスクワット完成<br>• 明らかな筋肉増加'
+    },
+    // Nutrition
+    nutritionTitle: { 'zh-CN': '🍽️ 简化营养方案', 'en': '🍽️ Simplified Nutrition Plan', 'ja': '🍽️ 簡単栄養プラン' },
+    mealBreakfastTime: { 'zh-CN': '早餐 (7:00)', 'en': 'Breakfast (7:00)', 'ja': '朝食 (7:00)' },
+    mealBreakfastContent: { 'zh-CN': '2个鸡蛋 + 1杯牛奶', 'en': '2 eggs + 1 cup of milk', 'ja': '卵2個 + 牛乳1杯' },
+    mealLunchTime: { 'zh-CN': '午餐 (12:30)', 'en': 'Lunch (12:30)', 'ja': '昼食 (12:30)' },
+    mealLunchContent: { 'zh-CN': '牛肉 + 蔬菜 + 米饭', 'en': 'Beef + Vegetables + Rice', 'ja': '牛肉 + 野菜 + ご飯' },
+    mealPostWorkoutTime: { 'zh-CN': '训练后 (17:00)', 'en': 'Post-Workout (17:00)', 'ja': 'トレーニング後 (17:00)' },
+    mealPostWorkoutContent: { 'zh-CN': '1勺蛋白粉 + 水冲饮', 'en': '1 scoop protein powder + water', 'ja': 'プロテインパウダー1杯 + 水' },
+    mealDinnerTime: { 'zh-CN': '晚餐 (19:00)', 'en': 'Dinner (19:00)', 'ja': '夕食 (19:00)' },
+    mealDinnerContent: { 'zh-CN': '牛肉 + 蔬菜 + 米饭', 'en': 'Beef + Vegetables + Rice', 'ja': '牛肉 + 野菜 + ご飯' },
+    proteinAlternative: {
+        'zh-CN': '💡 若蛋白粉不足，可在训练后改为 <strong>1个鸡蛋 + 牛奶</strong> 补充蛋白质。',
+        'en': '💡 If protein powder is unavailable, substitute with <strong>1 egg + milk</strong> post-workout for protein.',
+        'ja': '💡 プロテインパウダーがない場合は、トレーニング後に<strong>卵1個+牛乳</strong>でタンパク質を補給してください。'
+    },
+    // Tips
+    tipsTitle: { 'zh-CN': '💡 成功关键贴士', 'en': '💡 Key Tips for Success', 'ja': '💡 成功への重要なヒント' },
+    tipConsistencyTitle: { 'zh-CN': '一致性最重要', 'en': 'Consistency is Key', 'ja': '継続が最も重要' },
+    tipConsistencyDesc: { 'zh-CN': '每天固定时间训练，养成习惯比完美计划更重要', 'en': 'Train at a fixed time daily; habit is more important than a perfect plan.', 'ja': '毎日決まった時間にトレーニングし、完璧な計画よりも習慣を身につけることが重要です。' },
+    tipProgressiveOverloadTitle: { 'zh-CN': '渐进式增加', 'en': 'Progressive Overload', 'ja': '漸進的過負荷' },
+    tipProgressiveOverloadDesc: { 'zh-CN': '每周尝试多做1-2次，或增加保持时间', 'en': 'Try to do 1-2 more reps or increase hold time each week.', 'ja': '毎週1〜2回多く行うか、保持時間を増やしてみてください。' },
+    tipQualityOverQuantityTitle: { 'zh-CN': '动作质量优先', 'en': 'Quality Over Quantity', 'ja': '量より質' },
+    tipQualityOverQuantityDesc: { 'zh-CN': '标准动作比次数更重要，避免受伤', 'en': 'Proper form is more important than reps; avoid injury.', 'ja': '回数よりも正しいフォームが重要です。怪我を避けてください。' },
+    tipHydrationSleepTitle: { 'zh-CN': '充足水分和睡眠', 'en': 'Adequate Hydration & Sleep', 'ja': '十分な水分と睡眠' },
+    tipHydrationSleepDesc: { 'zh-CN': '每日3-4升水，7-9小时睡眠', 'en': '3-4 liters of water daily, 7-9 hours of sleep.', 'ja': '毎日3〜4リットルの水、7〜9時間の睡眠。' },
+    tipTrackProgressTitle: { 'zh-CN': '记录进步', 'en': 'Track Progress', 'ja': '進捗を記録する' },
+    tipTrackProgressDesc: { 'zh-CN': '用手机记录每次训练数据和照片对比', 'en': 'Use your phone to record training data and compare photos.', 'ja': 'スマートフォンで各トレーニングデータと写真を記録して比較します。' },
+    tipListenToBodyTitle: { 'zh-CN': '倾听身体', 'en': 'Listen to Your Body', 'ja': '自分の体に耳を傾ける' },
+    tipListenToBodyDesc: { 'zh-CN': '感到疼痛立即停止，肌肉酸痛是正常的', 'en': 'Stop if you feel pain; muscle soreness is normal.', 'ja': '痛みを感じたらすぐに中止してください。筋肉痛は正常です。' }
+};
+
+function changeLanguage(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('preferredLanguage', lang);
+
+    document.querySelectorAll('[data-translate-key]').forEach(element => {
+        const key = element.getAttribute('data-translate-key');
+        if (translations[key] && translations[key][lang]) {
+            if (key === 'milestoneTarget1-4' || key === 'milestoneTarget5-8' || key === 'milestoneTarget9-12' || key === 'proteinAlternative') { // Keys with HTML content
+                 element.innerHTML = translations[key][lang];
+            } else {
+                element.textContent = translations[key][lang];
+            }
+        }
+    });
+    updateActiveButton(lang);
+}
+
+function updateActiveButton(currentLang) {
+    const buttons = document.querySelectorAll('#language-switcher button');
+    buttons.forEach(button => {
+        if (button.getAttribute('data-lang') === currentLang) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const preferredLanguage = localStorage.getItem('preferredLanguage');
+    // Validate if preferredLanguage is one of the supported languages
+    const supportedLanguages = ['zh-CN', 'en', 'ja'];
+    if (preferredLanguage && supportedLanguages.includes(preferredLanguage)) {
+        changeLanguage(preferredLanguage);
+    } else {
+        // Default to Chinese if no valid language is stored or if it's the first visit
+        changeLanguage(document.documentElement.lang || 'zh-CN');
+    }
+});
+
+</script>
+</body>
+</html>
