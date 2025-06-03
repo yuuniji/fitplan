@@ -6,9 +6,9 @@
 
 A multi-language (🇨🇳 中文 / 🇬🇧 English / 🇯🇵 日本語) webpage for a **no-equipment bodyweight workout plan**, designed to help build muscle anywhere, anytime.
 
-🌐 **[Live Demo →](http://yuuniji.github.io/fitplan)**
+🌐 **[Live Demo →](https://yuuniji.github.io/fitplan/index.html)**
 
-![screenshot](./screenshot.png) <sub>📷 *Above: Sample screenshot (replace with your own)*</sub>
+![screenshot](./screenshot.png)
 
 ---
 
