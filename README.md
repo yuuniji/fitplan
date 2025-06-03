@@ -1,6 +1,6 @@
 # FitPlan / 徒手增肌训练计划 / 自重筋トレ計画
 
-[![GitHub Pages](https://img.shields.io/badge/view%20online-fitplan-blue?logo=github)](http://yuuniji.github.io/fitplan)
+[![GitHub Pages](https://img.shields.io/badge/view%20online-fitplan-blue?logo=github)](https://yuuniji.github.io/fitplan/index.html)
 [![Languages](https://img.shields.io/github/languages/top/yuuniji/fitplan?color=green)](https://github.com/yuuniji/fitplan)
 [![Last Commit](https://img.shields.io/github/last-commit/yuuniji/fitplan)](https://github.com/yuuniji/fitplan)
 

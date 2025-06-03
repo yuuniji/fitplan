@@ -284,6 +284,11 @@
             font-weight: bold;
             margin-bottom: 0.3rem;
         }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: var(--accent-hover);
+        }
 
         @media (max-width: 768px) {
             .header h1 {
@@ -821,5 +826,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+<footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; text-align: center; color: #6b7280;">
+    <p>© 2025 <a href="https://github.com/yuuniji/fitplan" target="_blank" style="color: var(--accent); text-decoration: none;">fitplan</a> by <a href="https://github.com/yuuniji" target="_blank" style="color: var(--accent); text-decoration: none;">Yuuniji.</a></p>
+    <p>本项目开源于 GitHub，欢迎 Star 和 Fork。</p>
+</footer>
 </body>
 </html>
