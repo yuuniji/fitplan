@@ -548,24 +548,24 @@
             <h2 class="progress-title" data-translate-key="progressTitle">📈 进度里程碑</h2>
             <div class="milestone-grid">
                 <div class="milestone-card">
-                    <div class="milestone-week" data-translate-key="milestoneWeek1-4">第1-4周</div>
-                    <div class="milestone-target" data-translate-key="milestoneTarget1-4">
+                    <div class="milestone-week" data-translate-key="milestoneWeek1_4">第1-4周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget1_4">
                         • 俯卧撑：5次 → 15次<br>
                         • 深蹲：15次 → 25次<br>
                         • 平板支撑：30秒 → 60秒
                     </div>
                 </div>
                 <div class="milestone-card">
-                    <div class="milestone-week" data-translate-key="milestoneWeek5-8">第5-8周</div>
-                    <div class="milestone-target" data-translate-key="milestoneTarget5-8">
+                    <div class="milestone-week" data-translate-key="milestoneWeek5_8">第5-8周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget5_8">
                         • 钻石俯卧撑入门<br>
                         • 单腿深蹲尝试<br>
                         • 平板支撑：90秒+
                     </div>
                 </div>
                 <div class="milestone-card">
-                    <div class="milestone-week" data-translate-key="milestoneWeek9-12">第9-12周</div>
-                    <div class="milestone-target" data-translate-key="milestoneTarget9-12">
+                    <div class="milestone-week" data-translate-key="milestoneWeek9_12">第9-12周</div>
+                    <div class="milestone-target" data-translate-key="milestoneTarget9_12">
                         • 单手俯卧撑尝试<br>
                         • 手枪深蹲完成<br>
                         • 明显肌肉增长
@@ -791,7 +791,7 @@ function changeLanguage(lang) {
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.getAttribute('data-translate-key');
         if (translations[key] && translations[key][lang]) {
-            if (key === 'milestoneTarget1-4' || key === 'milestoneTarget5-8' || key === 'milestoneTarget9-12' || key === 'proteinAlternative') { // Keys with HTML content
+            if (key === 'milestoneTarget1_4' || key === 'milestoneTarget5_8' || key === 'milestoneTarget9_12' || key === 'proteinAlternative') { // Keys with HTML content
                  element.innerHTML = translations[key][lang];
             } else {
                 element.textContent = translations[key][lang];
