@@ -6,16 +6,49 @@
     <title data-translate-key="pageTitle">徒手增肌训练计划</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --text-dark: #333;
-            --text-light: #fff;
-            --muted: #666;
-            --bg-light: #f8f9ff;
-            --bg-hover: #e8ebff;
-            --radius: 15px;
-            --transition: 0.3s ease;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            /* 浅色模式配色 */
+            --primary: #1A73E8;
+            --secondary: #5F6368;
+            --accent: #1A73E8;
+            --text-dark: #202124;
+            --text-light: #FFFFFF;
+            --muted: #5F6368;
+            --bg-light: #F8F9FA;
+            --bg-hover: #E8F0FE;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(60, 64, 67, 0.08);
+            --card-shadow: 0 1px 2px rgba(60, 64, 67, 0.1);
+            --radius: 8px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #1A73E8, #34A853);
+            --gradient-secondary: linear-gradient(135deg, #1A73E8, #34A853);
+            --gradient-rest: linear-gradient(135deg, #4285F4, #34A853);
+            --gradient-progress: linear-gradient(135deg, #1A73E8, #34A853);
+            --gradient-tips: linear-gradient(135deg, #1A73E8, #34A853);
+            --gradient-nutrition: linear-gradient(135deg, #1A73E8, #34A853);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* 深色模式配色 */
+                --primary: #8AB4F8;
+                --secondary: #9AA0A6;
+                --accent: #8AB4F8;
+                --text-dark: #E8EAED;
+                --text-light: #202124;
+                --muted: #9AA0A6;
+                --bg-light: #202124;
+                --bg-hover: #303134;
+                --card-bg: #292A2D;
+                --card-border: rgba(232, 234, 237, 0.08);
+                --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                --gradient-primary: linear-gradient(135deg, #8AB4F8, #81C995);
+                --gradient-secondary: linear-gradient(135deg, #8AB4F8, #81C995);
+                --gradient-rest: linear-gradient(135deg, #8AB4F8, #81C995);
+                --gradient-progress: linear-gradient(135deg, #8AB4F8, #81C995);
+                --gradient-tips: linear-gradient(135deg, #8AB4F8, #81C995);
+                --gradient-nutrition: linear-gradient(135deg, #8AB4F8, #81C995);
+            }
         }
 
         * {
@@ -25,109 +58,127 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--bg-light);
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1800px;
             margin: auto;
             padding: 2rem;
         }
 
         .header {
             text-align: center;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            position: relative; /* For language switcher positioning */
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            position: relative;
         }
 
         .header h1 {
             font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
         #language-switcher {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 8px;
-            border-radius: 8px;
-            z-index: 1000;
+            top: 0;
+            right: 0;
+            background: var(--card-bg);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
         }
 
         #language-switcher button {
-            background: var(--primary);
-            color: white;
+            background: transparent;
+            color: var(--text-dark);
             border: none;
-            padding: 6px 10px;
-            margin-left: 5px;
-            border-radius: 5px;
+            padding: 0.4rem 0.8rem;
+            margin-left: 0.3rem;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color var(--transition);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
         #language-switcher button:hover {
-            background: var(--secondary);
-        }
-         #language-switcher button.active {
-            background: var(--secondary);
-            font-weight: bold;
+            background: var(--bg-hover);
         }
 
+        #language-switcher button.active {
+            background: var(--accent);
+            color: var(--text-light);
+        }
 
         .week-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
+        @media (max-width: 1200px) {
+            .week-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         .day-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
+            padding: 1.2rem;
+            box-shadow: var(--card-shadow);
             transition: var(--transition);
-            border-left: 5px solid var(--primary);
+            border: 1px solid var(--card-border);
         }
 
         .day-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
         }
 
         .day-header {
-            display: flex;
-            align-items: center;
             margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .day-icon {
-            font-size: 2rem;
+            font-size: 1.2rem;
             margin-right: 0.75rem;
+            width: 1.2rem;
+            text-align: center;
+            display: inline-block;
         }
 
         .day-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
         }
 
         .day-subtitle {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--muted);
+            font-weight: 500;
         }
 
         .exercise-list {
@@ -136,73 +187,73 @@
 
         .exercise-item {
             background: var(--bg-light);
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--secondary);
+            margin: 0.4rem 0;
+            padding: 0.8rem;
+            border-radius: var(--radius);
             transition: var(--transition);
+            border: 1px solid var(--card-border);
         }
 
         .exercise-item:hover {
             background: var(--bg-hover);
-            transform: translateX(5px);
+            transform: translateX(2px);
+            border-color: var(--primary);
         }
 
         .exercise-name {
-            font-weight: bold;
+            font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
         }
 
         .exercise-details {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--muted);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
         }
 
         .exercise-link {
             display: inline-block;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
+            background: var(--accent);
+            color: var(--text-light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
             transition: var(--transition);
         }
 
         .exercise-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: var(--gradient-secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .rest-day {
-            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-            color: white;
-            text-align: center;
+            background: var(--gradient-rest);
+            color: var(--text-light);
         }
 
         .rest-day .day-title {
-            color: white;
-        }
-
-        .progress-section,
-        .tips-section,
-        .nutrition-section {
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-            color: var(--text-dark);
+            color: var(--text-light);
         }
 
         .progress-section {
-            background: white;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
         }
 
         .progress-title {
-            font-size: 1.6rem;
-            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
             text-align: center;
             margin-bottom: 1.5rem;
         }
@@ -210,84 +261,130 @@
         .milestone-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .milestone-card {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-            padding: 1rem;
-            border-radius: 10px;
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: var(--radius);
             text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
         }
 
         .milestone-week {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #333;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
 
         .milestone-target {
-            font-size: 0.9rem;
-            color: #555;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         .tips-section {
-            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
-            color: white;
+            background: var(--gradient-tips);
+            color: var(--text-light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
         }
 
-        .tips-title { /* Also used by nutrition title */
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
+        .tips-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             text-align: center;
+            margin-bottom: 1.5rem;
         }
 
         .tips-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .tip-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .tip-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
         .tip-icon {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            width: 1.2rem;
+            text-align: center;
+            display: inline-block;
         }
 
         .nutrition-section {
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            color: white;
+            background: var(--gradient-nutrition);
+            color: var(--text-light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
         }
 
         .meal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1rem;
         }
 
         .meal-card {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .meal-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
         .meal-time {
             font-weight: bold;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
         }
         
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
         footer a:hover {
-            text-decoration: underline;
-            color: var(--accent-hover);
+            color: var(--primary);
         }
 
         @media (max-width: 768px) {
@@ -308,6 +405,25 @@
                 margin-bottom: 1rem;
             }
         }
+
+        .emoji {
+            font-size: 1.2rem;
+            line-height: 1;
+            vertical-align: middle;
+            display: inline-block;
+            width: 1.2rem;
+            text-align: center;
+        }
+
+        .header h1 .emoji {
+            margin-right: 0.5rem;
+        }
+
+        .progress-title .emoji,
+        .tips-title .emoji,
+        .nutrition-title .emoji {
+            margin-right: 0.5rem;
+        }
     </style>
 
 </head>
@@ -319,14 +435,14 @@
                 <button onclick="changeLanguage('en')" data-lang="en">English</button>
                 <button onclick="changeLanguage('ja')" data-lang="ja">日本語</button>
             </div>
-            <h1 data-translate-key="headerTitle">🏋️ 徒手增肌训练计划</h1>
+            <h1 data-translate-key="headerTitle"><span class="emoji">🏋️</span> 徒手增肌训练计划</h1>
             <p data-translate-key="headerSubtitle">零器械 • 高效果 • 随时随地</p>
         </div>
         
         <div class="week-container">
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">💪</div>
+                    <div class="day-icon emoji">💪</div>
                     <div>
                         <div class="day-title" data-translate-key="mondayTitle">周一 - 上肢推力</div>
                         <div class="day-subtitle" data-translate-key="mondaySubtitle">胸肌 + 三头肌</div>
@@ -363,7 +479,7 @@
             
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">🦵</div>
+                    <div class="day-icon emoji">🦵</div>
                     <div>
                         <div class="day-title" data-translate-key="tuesdayTitle">周二 - 下肢+核心</div>
                         <div class="day-subtitle" data-translate-key="tuesdaySubtitle">腿部 + 腹肌</div>
@@ -400,7 +516,7 @@
 
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">🔙</div>
+                    <div class="day-icon emoji">🔙</div>
                     <div>
                         <div class="day-title" data-translate-key="wednesdayTitle">周三 - 上肢拉力</div>
                         <div class="day-subtitle" data-translate-key="wednesdaySubtitle">背部 + 二头肌</div>
@@ -432,7 +548,7 @@
 
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">⚡</div>
+                    <div class="day-icon emoji">⚡</div>
                     <div>
                         <div class="day-title" data-translate-key="thursdayTitle">周四 - 爆发力</div>
                         <div class="day-subtitle" data-translate-key="thursdaySubtitle">HIIT 高强度间歇</div>
@@ -464,7 +580,7 @@
             
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">🎯</div>
+                    <div class="day-icon emoji">🎯</div>
                     <div>
                         <div class="day-title" data-translate-key="fridayTitle">周五 - 上肢耐力</div>
                         <div class="day-subtitle" data-translate-key="fridaySubtitle">高次数耐力训练</div>
@@ -491,7 +607,7 @@
             
             <div class="day-card">
                 <div class="day-header">
-                    <div class="day-icon">🔥</div>
+                    <div class="day-icon emoji">🔥</div>
                     <div>
                         <div class="day-title" data-translate-key="saturdayTitle">周六 - 下肢强化</div>
                         <div class="day-subtitle" data-translate-key="saturdaySubtitle">腿部循环 + 核心</div>
@@ -523,7 +639,7 @@
             
             <div class="day-card rest-day">
                 <div class="day-header">
-                    <div class="day-icon">😴</div>
+                    <div class="day-icon emoji">😴</div>
                     <div>
                         <div class="day-title" data-translate-key="sundayTitle">周日 - 休息日</div>
                         <div class="day-subtitle" data-translate-key="sundaySubtitle">恢复与拉伸</div>
@@ -545,7 +661,7 @@
         </div>
         
         <div class="progress-section">
-            <h2 class="progress-title" data-translate-key="progressTitle">📈 进度里程碑</h2>
+            <h2 class="progress-title" data-translate-key="progressTitle"><span class="emoji">📈</span> 进度里程碑</h2>
             <div class="milestone-grid">
                 <div class="milestone-card">
                     <div class="milestone-week" data-translate-key="milestoneWeek1_4">第1-4周</div>
@@ -575,7 +691,7 @@
         </div>
         
         <div class="nutrition-section">
-            <h2 class="tips-title" data-translate-key="nutritionTitle">🍽️ 简化营养方案</h2>
+            <h2 class="tips-title" data-translate-key="nutritionTitle"><span class="emoji">🍽️</span> 简化营养方案</h2>
             <div class="meal-grid">
                 <div class="meal-card">
                     <div class="meal-time" data-translate-key="mealBreakfastTime">早餐 (7:00)</div>
@@ -600,35 +716,35 @@
         </div>
         
         <div class="tips-section">
-            <h2 class="tips-title" data-translate-key="tipsTitle">💡 成功关键贴士</h2>
+            <h2 class="tips-title" data-translate-key="tipsTitle"><span class="emoji">💡</span> 成功关键贴士</h2>
             <div class="tips-grid">
                 <div class="tip-item">
-                    <div class="tip-icon">⏰</div>
+                    <div class="tip-icon emoji">⏰</div>
                     <strong data-translate-key="tipConsistencyTitle">一致性最重要</strong><br>
                     <span data-translate-key="tipConsistencyDesc">每天固定时间训练，养成习惯比完美计划更重要</span>
                 </div>
                 <div class="tip-item">
-                    <div class="tip-icon">📈</div>
+                    <div class="tip-icon emoji">📈</div>
                     <strong data-translate-key="tipProgressiveOverloadTitle">渐进式增加</strong><br>
                     <span data-translate-key="tipProgressiveOverloadDesc">每周尝试多做1-2次，或增加保持时间</span>
                 </div>
                 <div class="tip-item">
-                    <div class="tip-icon">🎯</div>
+                    <div class="tip-icon emoji">🎯</div>
                     <strong data-translate-key="tipQualityOverQuantityTitle">动作质量优先</strong><br>
                     <span data-translate-key="tipQualityOverQuantityDesc">标准动作比次数更重要，避免受伤</span>
                 </div>
                 <div class="tip-item">
-                    <div class="tip-icon">💧</div>
+                    <div class="tip-icon emoji">💧</div>
                     <strong data-translate-key="tipHydrationSleepTitle">充足水分和睡眠</strong><br>
                     <span data-translate-key="tipHydrationSleepDesc">每日3-4升水，7-9小时睡眠</span>
                 </div>
                 <div class="tip-item">
-                    <div class="tip-icon">📱</div>
+                    <div class="tip-icon emoji">📱</div>
                     <strong data-translate-key="tipTrackProgressTitle">记录进步</strong><br>
                     <span data-translate-key="tipTrackProgressDesc">用手机记录每次训练数据和照片对比</span>
                 </div>
                 <div class="tip-item">
-                    <div class="tip-icon">🧘</div>
+                    <div class="tip-icon emoji">🧘</div>
                     <strong data-translate-key="tipListenToBodyTitle">倾听身体</strong><br>
                     <span data-translate-key="tipListenToBodyDesc">感到疼痛立即停止，肌肉酸痛是正常的</span>
                 </div>
@@ -826,7 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-<footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; text-align: center; color: #fff;">
+<footer>
     <p>© 2025 <a href="https://github.com/yuuniji/fitplan" target="_blank" style="color: orange; text-decoration: none;">fitplan</a> by <a href="https://github.com/yuuniji" target="_blank" style="color: orange; text-decoration: none;">Yuuniji.</a></p>
     <p>本项目开源于 GitHub，欢迎 Star 和 Fork。</p>
 </footer>
