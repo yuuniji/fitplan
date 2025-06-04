@@ -93,6 +93,32 @@
             opacity: 0.9;
         }
 
+        .datetime-display {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin: 0.5rem 0;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .datetime-display .time {
+            background: var(--card-bg);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .datetime-display .weekday {
+            background: var(--gradient-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius);
+            color: var(--text-light);
+        }
+
         #language-switcher {
             position: absolute;
             top: 0;
@@ -424,6 +450,36 @@
         .nutrition-title .emoji {
             margin-right: 0.5rem;
         }
+
+        .rest-day .day-title {
+            color: var(--text-light);
+        }
+
+        .current-day {
+            border: 2px solid var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .current-day::before {
+            content: var(--today-label);
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .current-day.rest-day::before {
+            content: var(--today-label);
+        }
     </style>
 
 </head>
@@ -437,6 +493,10 @@
             </div>
             <a href="https://github.com/yuuniji/fitplan" style="text-decoration: none;"><h1 data-translate-key="headerTitle"><span class="emoji">🏋️</span> 徒手增肌训练计划</h1></a>
             <p data-translate-key="headerSubtitle">零器械 • 高效果 • 随时随地</p>
+            <div class="datetime-display">
+                <span class="time" id="current-time"></span>
+                <span class="weekday" id="current-weekday"></span>
+            </div>
         </div>
         
         <div class="week-container">
@@ -897,7 +957,22 @@ const translations = {
     tipTrackProgressTitle: { 'zh-CN': '记录进步', 'en': 'Track Progress', 'ja': '進捗を記録する' },
     tipTrackProgressDesc: { 'zh-CN': '用手机记录每次训练数据和照片对比', 'en': 'Use your phone to record training data and compare photos.', 'ja': 'スマートフォンで各トレーニングデータと写真を記録して比較します。' },
     tipListenToBodyTitle: { 'zh-CN': '倾听身体', 'en': 'Listen to Your Body', 'ja': '自分の体に耳を傾ける' },
-    tipListenToBodyDesc: { 'zh-CN': '感到疼痛立即停止，肌肉酸痛是正常的', 'en': 'Stop if you feel pain; muscle soreness is normal.', 'ja': '痛みを感じたらすぐに中止してください。筋肉痛は正常です。' }
+    tipListenToBodyDesc: { 'zh-CN': '感到疼痛立即停止，肌肉酸痛是正常的', 'en': 'Stop if you feel pain; muscle soreness is normal.', 'ja': '痛みを感じたらすぐに中止してください。筋肉痛は正常です。' },
+    weekdays: {
+        'zh-CN': ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        'en': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        'ja': ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日']
+    },
+    todayTraining: {
+        'zh-CN': '今日训练',
+        'en': 'Today\'s Training',
+        'ja': '今日のトレーニング'
+    },
+    todayRest: {
+        'zh-CN': '今日休息',
+        'en': 'Rest Day',
+        'ja': '休息日'
+    }
 };
 
 function changeLanguage(lang) {
@@ -915,6 +990,7 @@ function changeLanguage(lang) {
         }
     });
     updateActiveButton(lang);
+    updateDateTime(); // 更新星期显示
 }
 
 function updateActiveButton(currentLang) {
@@ -928,6 +1004,50 @@ function updateActiveButton(currentLang) {
     });
 }
 
+function updateDateTime() {
+    const now = new Date();
+    const timeElement = document.getElementById('current-time');
+    const weekdayElement = document.getElementById('current-weekday');
+    const currentLang = document.documentElement.lang;
+    
+    // 更新时间
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    
+    // 更新星期
+    const weekday = translations.weekdays[currentLang][now.getDay()];
+    weekdayElement.textContent = weekday;
+
+    // 更新当前星期的卡片高亮
+    const dayCards = document.querySelectorAll('.day-card');
+    dayCards.forEach(card => {
+        card.classList.remove('current-day');
+    });
+    
+    // 获取当前星期的卡片并添加高亮
+    // 将 getDay() 的返回值（0-6，周日-周六）转换为卡片索引（0-6，周一-周日）
+    let currentDayIndex = now.getDay();
+    if (currentDayIndex === 0) { // 如果是周日
+        currentDayIndex = 6; // 对应最后一个卡片
+    } else {
+        currentDayIndex--; // 其他日期减1，因为卡片是从周一开始的
+    }
+    
+    const currentDayCard = dayCards[currentDayIndex];
+    if (currentDayCard) {
+        currentDayCard.classList.add('current-day');
+        // 更新标签文本
+        const isRestDay = currentDayCard.classList.contains('rest-day');
+        const labelText = isRestDay ? translations.todayRest[currentLang] : translations.todayTraining[currentLang];
+        currentDayCard.style.setProperty('--today-label', `"${labelText}"`);
+    }
+}
+
+// 每秒更新一次时间
+setInterval(updateDateTime, 1000);
+updateDateTime(); // 立即执行一次
 
 document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage');
