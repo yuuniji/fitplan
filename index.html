@@ -289,9 +289,12 @@
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
+            /* 渐变大标题，主流浏览器支持 */
             background: var(--gradient-secondary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            /* Fallback: 不支持渐变clip时显示主色 */
+            color: var(--primary);
             letter-spacing: -0.5px;
         }
 
