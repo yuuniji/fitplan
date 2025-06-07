@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="pageTitle">徒手增肌训练计划</title>
     <style>
+        .plank-toggle-btn {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0 0.2em 0 0;
+            border-radius: 0;
+            box-shadow: none;
+            font-size: 1.2em;
+            line-height: 1;
+            cursor: pointer;
+            color: inherit;
+        }
+        .plank-toggle-btn:active, .plank-toggle-btn:focus, .plank-toggle-btn:hover {
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            color: inherit;
+        }
+
         .gallery-scroll-wrapper {
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -436,6 +457,14 @@
             font-size: 0.75rem;
             font-weight: 500;
             transition: var(--transition);
+        }
+
+        .plank-variation-list {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0.2rem 0 0.4rem 0;
+            padding-left: 1.2em;
         }
 
         .exercise-link:hover {
@@ -1120,11 +1149,30 @@
                         <a href="https://www.youtube.com/results?search_query=wall+sit+exercise" class="exercise-link"
                             target="_blank" data-translate-key="videoLink">📺 教学视频</a>
                     </li>
+                    <hr>
                     <li class="exercise-item">
                         <div class="exercise-name" data-translate-key="coreBlastName">核心强化</div>
                         <div class="exercise-details" data-translate-key="coreBlastDetails">平板支撑变化 5分钟连续</div>
                         <a href="https://www.youtube.com/results?search_query=plank+variations+core+workout"
                             class="exercise-link" target="_blank" data-translate-key="videoLink">📺 教学视频</a>
+                        <button class="plank-toggle-btn" type="button" data-translate-key="plankToggleBtn" onclick="togglePlankList(this)">＋</button>
+                        <ul class="plank-variation-list" data-translate-key="plankVariationList" style="display:none;">
+                            <li lang="zh-CN"><b>0:00 - 1:00</b> 🧍‍♂️ 平板支撑（基础）<br>双肘和脚尖支撑地面，身体保持一直线，收紧腹部，不塌腰</li>
+                            <li lang="zh-CN"><b>1:00 - 2:00</b> 🔄 左侧平板支撑<br>左侧手肘撑地，脚叠在一起或一前一后，身体侧向，核心发力</li>
+                            <li lang="zh-CN"><b>2:00 - 3:00</b> 🔄 右侧平板支撑<br>同上，换右边做</li>
+                            <li lang="zh-CN"><b>3:00 - 4:00</b> 🦵 抬腿平板支撑<br>保持基础平板支撑姿势，左右腿轮流抬起，每条腿停2-3秒</li>
+                            <li lang="zh-CN"><b>4:00 - 5:00</b> 🤸‍♂️ 肩膀碰触<br>保持平板支撑，用右手去碰左肩，左手去碰右肩，交替进行，核心保持稳定不要晃动</li>
+                            <li lang="en" style="display:none"><b>0:00 - 1:00</b> 🧍‍♂️ Basic Plank<br>Elbows and toes on the ground, keep body straight, engage core, don’t sag hips</li>
+                            <li lang="en" style="display:none"><b>1:00 - 2:00</b> 🔄 Left Side Plank<br>Left elbow on the ground, feet stacked or staggered, body sideways, core engaged</li>
+                            <li lang="en" style="display:none"><b>2:00 - 3:00</b> 🔄 Right Side Plank<br>Same as above, switch to right side</li>
+                            <li lang="en" style="display:none"><b>3:00 - 4:00</b> 🦵 Leg Lift Plank<br>Hold basic plank, alternate lifting legs, hold each leg for 2-3 seconds</li>
+                            <li lang="en" style="display:none"><b>4:00 - 5:00</b> 🤸‍♂️ Shoulder Tap<br>Hold plank, tap left shoulder with right hand, right shoulder with left hand, alternate, keep core stable</li>
+                            <li lang="ja" style="display:none"><b>0:00 - 1:00</b> 🧍‍♂️ プランク（基本）<br>両肘とつま先で支え、体を一直線に、腹筋を締めて腰を落とさない</li>
+                            <li lang="ja" style="display:none"><b>1:00 - 2:00</b> 🔄 左サイドプランク<br>左肘で支え、足は重ねるか前後に、体を横向きにしコアに力を入れる</li>
+                            <li lang="ja" style="display:none"><b>2:00 - 3:00</b> 🔄 右サイドプランク<br>同様に右側で行う</li>
+                            <li lang="ja" style="display:none"><b>3:00 - 4:00</b> 🦵 脚上げプランク<br>基本プランクの姿勢で左右交互に脚を上げ、各脚2～3秒キープ</li>
+                            <li lang="ja" style="display:none"><b>4:00 - 5:00</b> 🤸‍♂️ 肩タッチ<br>プランク姿勢で右手で左肩、左手で右肩に交互にタッチ、体幹を安定させる</li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -1319,6 +1367,26 @@
     </div>
 
     <script>
+    // 同步展开/收起按钮符号
+    function syncPlankToggleBtn(ul, btn) {
+        if (!btn) return;
+        if (ul.style.display === 'none' || ul.style.display === '') {
+            btn.textContent = '＋';
+        } else {
+            btn.textContent = '－';
+        }
+    }
+    // 展开/收起平板分解动作列表
+    function togglePlankList(btn) {
+        var ul = btn.nextElementSibling;
+        if (ul.style.display === 'none' || ul.style.display === '') {
+            ul.style.display = 'block';
+        } else {
+            ul.style.display = 'none';
+        }
+        syncPlankToggleBtn(ul, btn);
+    }
+
         // 多图切换+双指缩放+长按保存的图片预览
         function previewImage(img) {
             // 获取所有gallery-card-photo图片
@@ -1792,6 +1860,21 @@
                     } else {
                         element.textContent = translations[key][lang];
                     }
+                }
+            });
+            // 多语言平板支撑分解显示
+            document.querySelectorAll('.plank-variation-list').forEach(function (ul) {
+                ul.querySelectorAll('li').forEach(function (li) {
+                    if (li.getAttribute('lang') === lang) {
+                        li.style.display = '';
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+                // 同步展开/收起按钮符号
+                var btn = ul.previousElementSibling;
+                if (btn && btn.classList.contains('plank-toggle-btn')) {
+                    syncPlankToggleBtn(ul, btn);
                 }
             });
             updateActiveButton(lang);
