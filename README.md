@@ -8,7 +8,7 @@ A multi-language (🇨🇳 中文 / 🇬🇧 English / 🇯🇵 日本語) webpa
 
 🌐 **[Live Demo →](https://yuuniji.github.io/fitplan/index.html)**
 
-![screenshot](./screenshot.png)
+![screenshot](./img/screenshot.png)
 
 ---
 
